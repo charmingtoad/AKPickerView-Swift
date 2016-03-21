@@ -557,7 +557,12 @@ public class AKPickerView: UIView, UICollectionViewDataSource, UICollectionViewD
 
 	// MARK: UICollectionViewDelegateFlowLayout
 	public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-		var size = CGSizeMake(self.interitemSpacing, collectionView.bounds.size.height)
+        
+        var maxHeight = CGRectGetHeight(collectionView.frame) - collectionView.contentInset.top - collectionView.contentInset.bottom
+        guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout  else { return CGSizeZero }
+        maxHeight = maxHeight - flowLayout.sectionInset.top - flowLayout.sectionInset.bottom
+        
+		var size = CGSizeMake(self.interitemSpacing, maxHeight)
 		if let title = self.dataSource?.pickerView?(self, titleForItem: indexPath.item) {
 			size.width += self.sizeForString(title).width
 			if let margin = self.delegate?.pickerView?(self, marginForItem: indexPath.item) {
