@@ -303,6 +303,12 @@ public class AKPickerView: UIView, UICollectionViewDataSource, UICollectionViewD
 				}()
 		}
 	}
+    
+    public var showsVerticalScrollIndicator: Bool = true {
+        didSet {
+            self.collectionView.showsVerticalScrollIndicator = showsVerticalScrollIndicator
+        }
+    }
 
 	// MARK: Readonly Properties
 	/// Readonly. Index of currently selected item.
